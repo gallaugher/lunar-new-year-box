@@ -1,4 +1,10 @@
-# Play .wav files from a microcontroller
+# Code by Prof. John Gallaugher for Lunar New Year box
+# Demo vide of the buid at: https://youtu.be/2Al0q0eAXpM
+# Built using a Adafruit Feather RP2040 microcontroller
+# Hamburger speaker, and 5 momentary push buttons.
+# Sounds in "sounds" file at GitHub repo at:
+# https://github.com/gallaugher/lunar-new-year-box
+
 import time, board, digitalio
 from audiocore import WaveFile
 from adafruit_debouncer import Debouncer
@@ -16,9 +22,14 @@ except ImportError:
         pass # Not all boards can play audio with AudioOut
 
 # configure AudioOut & set path where sounds can be found
+# Asumes audio is wired to pin A1. If not, be sure to change in the line below.
 audio = AudioOut(board.A1)
+# assumes microcontroller has a folder named sounds with five sounds named:
+# "mandarin.wav", "cantonese.wav", "vietnamese.wav", "korean.wav", "english.wav"
 path = "sounds/"
 
+# Assumes 5 buttons are wired to D5, D6, D9, D10, and D11
+# If changing wiring, be sure to change those pin values, below.
 buttons = []
 button_1_input = digitalio.DigitalInOut(board.D5)
 button_1_input.switch_to_input(pull=digitalio.Pull.UP) # Button is pushed when button.value == False
